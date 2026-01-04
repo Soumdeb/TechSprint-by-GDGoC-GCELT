@@ -1,1 +1,0 @@
-# TechSprint-by-GDGoC-GCELT
