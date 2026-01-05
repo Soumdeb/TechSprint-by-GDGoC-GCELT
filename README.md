@@ -1,19 +1,10 @@
 <!-- Improved compatibility of back to top link -->
 <a id="readme-top"></a>
-
-<!-- PROJECT SHIELDS -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/github_username/repo_name">
-    <img src="images/logo.png" alt="Logo" width="90" height="90">
+    <img src="assets/soumosundar.jpeg" alt="Logo" width="90" height="90">
   </a>
 
 <h3 align="center">Dermac AI</h3>
@@ -130,4 +121,5 @@ The system leverages a **Convolutional Neural Network (CNN)** trained on diverse
 ---
 
 ## System Architecture
+
 
