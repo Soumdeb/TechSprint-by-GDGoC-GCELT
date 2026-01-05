@@ -7,13 +7,14 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from PIL import Image
-
 from single_img_analyzer import SkinLesionClassifier
 from progress_tracking import ProgressTracker
 import class_accuracy
 import about
 
-
+# ---------------------
+# FIREBASE AUTH SETUP
+# ---------------------
 FIREBASE_API_KEY = "AIzaSyBPko0wgXlCiUr2Yb2rwg8q_SV6N2_VySE"
 
 def signup(email, password):
@@ -36,58 +37,107 @@ def login(email, password):
     r = requests.post(url, json=payload)
     return r.json()
 
+# ----------------------------------
+# LANDING PAGE 
+# ----------------------------------
 
 if "page" not in st.session_state:
     st.session_state.page = "landing"
 
 
-
-import time
-
-def animated_text(text, speed=0.01):
+def animated_text(text, speed=0.02, key="animated_text"):
+    if key in st.session_state:
+        st.markdown(
+            f"<p style='font-size:22px; opacity:0.8; text-align:center;'>{text}</p>",
+            unsafe_allow_html=True
+        )
+        return
+    
     placeholder = st.empty()
-    typed = ""
+    typed = []
 
     for char in text:
-        typed += char
+        typed.append(char)
         placeholder.markdown(
-            f"<p style='font-size:22px; opacity:0.8; text-align:center;'>{typed}</p>",
+            f"<p style='font-size:22px; opacity:0.8; text-align:center;'>"
+            f"{''.join(typed)}</p>",
             unsafe_allow_html=True
         )
         time.sleep(speed)
-    
 
+    st.session_state[key] = True
+
+    
 def landing_page():
-    st.markdown(
-        """
-        <style>
-        .hero {
-            text-align: center;
-            padding: 120px 20px;
-        }
-        .hero h1 {
-            font-size: 64px;
-            font-weight: 700;
-            margin-bottom: -150px;
-        }
-        .hero p {
-            font-size: 22px;
-            opacity: 0.8;
-            margin-top: -300px;
-            margin-bottom: 30px;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+    st.markdown("""
+<style>
+
+/* ---------- GLOBAL ---------- */
+#MainMenu, footer, header { visibility: hidden; }
+
+html, body, [data-testid="stAppViewContainer"] {
+    background: radial-gradient(
+        1200px 600px at 50% -200px,
+        #0b1220 0%,
+        #020617 60%
+    );
+    color: #e5e7eb;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ---------- HERO SECTION ---------- */
+.hero {
+    text-align: center;
+    padding-top: 140px;
+    padding-bottom: 48px;
+}
+
+.hero h1 {
+    font-size: 56px;
+    font-weight: 300;
+    margin-bottom: 14px;
+    color: #f9fafb;
+    letter-spacing: -0.02em;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #9ca3af;
+    margin-bottom: 36px;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ---------- PRIMARY BUTTON (DARK RED) ---------- */
+.stButton button {
+    background: #7f1d1d;
+    color: #f9fafb;
+    border-radius: 10px;
+    padding: 13px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid #991b1b;
+    width: 100%;
+}
+
+.stButton button:hover {
+    background: #991b1b;
+}
+
+/* ---------- PREVENT LAYOUT JUMP ---------- */
+.block-container {
+    padding-top: 0 !important;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
 
     st.markdown(
         """
         <div class="hero">
             <h1>DERMAC AI</h1>
-            
-    
-            
         </div>
         """,
         unsafe_allow_html=True
@@ -103,8 +153,98 @@ def landing_page():
 
 
 
+# ----------------------------------
+# AUTHENTICATION
+# ----------------------------------
+
 def auth_page():
-    st.title("DERMAC AI – Authentication")
+
+    st.markdown(
+        """
+    <style>
+    /* Hide Streamlit chrome */
+    #MainMenu, footer, header {visibility: hidden;}
+
+    html, body, [data-testid="stAppViewContainer"] {
+        background: linear-gradient(180deg, #020617, #020617);
+        color: #e5e7eb;
+    }
+
+    /* Auth Card */
+    .auth-container {
+        max-width: 440px;
+        margin: 90px auto;
+        padding: 42px 40px;
+        background: #020617;
+        border-radius: 14px;
+        border: 1px solid #1f2933;
+    }
+
+    /* Title */
+    .auth-title {
+        text-align: center;
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 32px;
+        color: #f9fafb;
+    }
+
+    /* Labels */
+    label {
+        color: #9ca3af !important;
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    /* Inputs */
+    input {
+        background: #020617 !important;
+        border: 1px solid #1f2933 !important;
+        border-radius: 10px !important;
+        padding: 13px !important;
+        color: #f9fafb !important;
+    }
+
+    input:focus {
+        border-color: #b91c1c !important;
+        outline: none;
+    }
+
+    /* Primary button (RED) */
+    .stButton button {
+        background: #b91c1c;
+        color: white;
+        border-radius: 10px;
+        padding: 13px;
+        font-size: 14px;
+        font-weight: 600;
+        border: none;
+    }
+
+    .stButton button:hover {
+        background: #991b1b;
+    }
+
+    /* Secondary link button */
+    .stButton:nth-of-type(2) button {
+        background: transparent;
+        color: #9ca3af;
+        border: 1px solid #1f2933;
+        margin-top: 6px;
+    }
+
+    /* Footer text */
+    .auth-footer {
+        text-align: center;
+        font-size: 13px;
+        color: #6b7280;
+        margin-top: 20px;
+    }
+
+    </style>
+        """,
+        unsafe_allow_html=True
+    )
 
     # Track auth mode
     if "auth_mode" not in st.session_state:
@@ -127,15 +267,13 @@ def auth_page():
             else:
                 st.error(res.get("error", {}).get("message", "Signup failed"))
 
-        st.markdown("<small>Already have an account?</small>", unsafe_allow_html=True)
+        st.markdown("<medium>Already have an account?</medium>", unsafe_allow_html=True)
         if st.button("Login here"):
             st.session_state.auth_mode = "login"
             st.rerun()   
          
-
     else:  # LOGIN MODE
         st.subheader("Login")
-
         email = st.text_input("Email", key="login_email")
         password = st.text_input("Password", type="password", key="login_password")
 
@@ -148,7 +286,7 @@ def auth_page():
             else:
                 st.error(res.get("error", {}).get("message", "Login failed"))
 
-        st.markdown("<small>Don’t have an account?</small>", unsafe_allow_html=True)
+        st.markdown("<medium>Don’t have an account?</medium>", unsafe_allow_html=True)
         if st.button("Create one"):
             st.session_state.auth_mode = "signup"
             st.rerun()
@@ -164,8 +302,9 @@ if st.session_state.page == "auth":
     st.stop()
 
 
-
-# ===== PROTECTED APP =====
+# ----------------------------------
+# PROTED APP
+# ----------------------------------
 
 if "user" not in st.session_state:
     st.session_state.page = "auth"
@@ -193,134 +332,53 @@ st.set_page_config(
     layout="wide"
 )
 
-# ----------------------------------
-# CUSTOM CSS (CLIENT-FRIENDLY UI)
-# ----------------------------------
-st.markdown("""
-<style>
+st.markdown(
+    """
+    <style>
+    /* Hide Streamlit chrome */
+        #MainMenu, footer, header {visibility: hidden;}
 
-/* ---------- GLOBAL DARK THEME (KEEP) ---------- */
-html, body, [class*="css"] {
-    font-family: "Inter", "Segoe UI", Arial, sans-serif;
-    background-color: #020617;
-    color: #e5e7eb;
-}
+    /* Remove layout influence */
+    div[data-testid="stPopover"] {
+        all: unset;
+    }
 
-/* Remove Streamlit padding so we can center card */
-.block-container {
-    padding: 0;
-    max-width: 100%;
-}
+    /* Small fixed menu button (top-right) */
+    button[data-testid="stPopoverButton"] {
+        position: fixed !important;
+        top: 14px;
+        right: 16px;        /* moved to top-right */
+        left: auto !important;
 
-/* Hide Streamlit branding */
-footer { visibility: hidden; }
-header { visibility: hidden; }
+        z-index: 9999;
+        background: #020617;
+        color: #e5e7eb;
+        border: 1px solid #1f2933;
+        border-radius: 8px;
 
-/* ---------- AUTH PAGE ONLY ---------- */
-.auth-page {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: radial-gradient(circle at top, #1a1f2b, #020617);
-}
+        padding: 6px 8px;
+        font-size: 13px;
+        line-height: 1;
+        min-width: unset;
+        width: auto;
+    }
 
-/* Main login card */
-.auth-card {
-    display: flex;
-    width: 900px;
-    height: 520px;
-    background: linear-gradient(145deg, #0f172a, #020617);
-    border: 1px solid #1e293b;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.6);
-}
+    button[data-testid="stPopoverButton"]:hover {
+        border-color: #7f1d1d;   /* muted red */
+        background: #020617;
+    }
 
-/* Left side (form) */
-.auth-left {
-    flex: 1;
-    padding: 60px;
-    color: #f9fafb;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-/* Title */
-.auth-title {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 32px;
-}
-
-/* ---------------- STREAMLIT INPUT FIX ---------------- */
-/* Streamlit text inputs */
-.auth-left div[data-testid="stTextInput"] input {
-    background-color: #020617 !important;
-    border: 1px solid #334155 !important;
-    border-radius: 10px !important;
-    padding: 14px !important;
-    color: #e5e7eb !important;
-}
-
-/* Remove Streamlit input label spacing */
-.auth-left label {
-    color: #9ca3af;
-    font-size: 0.9rem;
-}
-
-/* Spacing between inputs */
-.auth-left div[data-testid="stTextInput"] {
-    margin-bottom: 18px;
-}
-
-/* ---------------- BUTTON FIX ---------------- */
-.auth-btn .stButton > button {
-    width: 100%;
-    height: 48px;
-    background: linear-gradient(90deg, #6d28d9, #9333ea);
-    border-radius: 999px;
-    border: none;
-    font-weight: 600;
-    color: white;
-}
-
-.auth-btn .stButton > button:hover {
-    background: linear-gradient(90deg, #7c3aed, #a855f7);
-}
-
-/* Right side (image panel) */
-.auth-right {
-    flex: 1;
-    background: #f5f3ff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-    text-align: center;
-}
-
-/* Right panel text */
-.auth-right h2 {
-    color: #7c3aed;
-    font-weight: 600;
-    margin-top: 20px;
-    font-size: 1.3rem;
-}
-
-/* Image */
-.auth-right img {
-    max-width: 320px;
-    border-radius: 12px;
-}
-
-
-
-</style>
-""", unsafe_allow_html=True)
-
+    /* Popover panel */
+    div[data-testid="stPopover"] {
+        position: fixed !important;
+        top: 48px !important;
+        right: 16px !important;
+        left: auto !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 
 st.set_option("client.showErrorDetails", True)
@@ -339,16 +397,14 @@ def load_tracker():
 clf = load_classifier()
 tracker = load_tracker()
 
-# ----------------------------------
-# SESSION STATE
-# ----------------------------------
-if "current_page" not in st.session_state:
-    st.session_state.current_page = "Home"
 
 # ----------------------------------
 # NAVIGATION
 # ----------------------------------
 def navigation():
+    if "current_page" not in st.session_state:
+        st.session_state.current_page = "Home"
+
     with st.popover("☰ Menu"):
         selected = option_menu(
             None,
@@ -360,37 +416,249 @@ def navigation():
                 "bullseye",
                 "info-circle-fill"
             ],
-            default_index=0
+            default_index=[
+                "Home",
+                "Single Image Analysis",
+                "Progress Tracking",
+                "Class Accuracy",
+                "About"
+            ].index(st.session_state.current_page),
+            styles={
+                "container": {"padding": "0"},
+                "icon": {"font-size": "14px"},
+                "nav-link": {
+                    "font-size": "14px",
+                    "padding": "10px 12px",
+                    "text-align": "left",
+                },
+                "nav-link-selected": {
+                    "background-color": "#7f1d1d",
+                    "color": "#f9fafb",
+                },
+            }
         )
-        st.session_state.current_page = selected
+
+        if selected != st.session_state.current_page:
+            st.session_state.current_page = selected
+            st.rerun()
+
 
 # ----------------------------------
 # PAGES
 # ----------------------------------
 def home():
+    st.markdown(
+        """
+    <style>
+    /* Hide Streamlit chrome */
+        #MainMenu, footer, header {visibility: hidden;}
+
+    /* Page spacing */
+    .block-container {
+        padding-top: 2.5rem;
+        padding-bottom: 3rem;
+    }
+
+    /* Title refinement */
+    h1 {
+        font-size: 40px;
+        letter-spacing: 0.5px;
+        margin-bottom: 12px;
+    }
+
+    /* Info banner */
+    div[data-testid="stAlert"] {
+        max-width: 1000px;
+        margin: 0 0 36px 0;
+        padding: 14px 18px;
+        border-radius: 10px;
+        background: #020617;
+        border: 1px solid #7f1d1d;
+        font-size: 14px;
+    }
+
+    /* Section header spacing */
+    h2 {
+        margin-top: 10px;
+        margin-bottom: 6px;
+    }
+
+    /* Expander cards – cleaner */
+    div[data-testid="stExpander"] {
+        background: #020617;
+        border: 1px solid #1f2933;
+        border-radius: 12px;
+        transition: border-color 0.15s ease;
+    }
+
+    div[data-testid="stExpander"]:hover {
+        border-color: #374151;
+    }
+
+    /* Expander title text */
+    div[data-testid="stExpander"] summary {
+        font-size: 14px;
+        font-weight: 500;
+        color: #f9fafb;
+    }
+
+    /* Expander content text */
+    div[data-testid="stExpander"] p {
+        font-size: 13px;
+        color: #9ca3af;
+        line-height: 1.5;
+    }
+    </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Header
     st.title("DERMAC AI")
     st.info("AI-powered skin lesion classification and progression tracking.")
 
+    # Section
     st.markdown("## Class Information")
-    st.markdown("Overview of supported skin lesion classes and associated risk levels.")
+    st.markdown(
+        "<p>Overview of supported skin lesion classes and associated risk levels.</p>",
+        unsafe_allow_html=True
+    )
 
     cols = st.columns(3)
 
     for i, (idx, name) in enumerate(clf.label_map.items()):
         with cols[i % 3]:
-            with st.expander(f"{name} ({clf.risk_levels.get(name, 'Unknown')} Risk)"):
-                
+            with st.expander(
+                f"{name} ({clf.risk_levels.get(name, 'Unknown')} Risk)"
+            ):
                 if name == "Melanoma":
-                    st.write("Highly aggressive skin cancer. Immediate medical evaluation is required.")
+                    st.write(
+                        "Highly aggressive skin cancer. Immediate medical evaluation is required."
+                    )
                 elif name in ["Basal Cell Carcinoma", "Squamous Cell Carcinoma"]:
-                    st.write("Common skin cancers. Early detection leads to high treatment success.")
+                    st.write(
+                        "Common skin cancers. Early detection leads to high treatment success."
+                    )
                 elif name == "Actinic Keratosis":
-                    st.write("Precancerous lesion caused by sun exposure. Monitoring recommended.")
+                    st.write(
+                        "Precancerous lesion caused by sun exposure. Monitoring recommended."
+                    )
                 else:
-                    st.write("Generally benign lesion with low malignancy risk.")
+                    st.write(
+                        "Generally benign lesion with low malignancy risk."
+                    )
 
 # -------- SINGLE IMAGE ANALYSIS --------
 def single_image_analysis_page():
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.markdown('<div class="main-title">Single Image Analysis</div>', unsafe_allow_html=True)
+
+    st.markdown("""
+    <style>
+
+    /* ---------- GLOBAL ---------- */
+    html, body, [data-testid="stAppViewContainer"] {
+        background: radial-gradient(
+            1200px 600px at 50% -200px,
+            #0b1220 0%,
+            #020617 60%
+        );
+        color: #e5e7eb;
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Hide Streamlit chrome */
+    #MainMenu, footer, header { visibility: hidden; }
+
+    /* Remove only the FIRST empty spacer Streamlit injects */
+    .block-container > div:first-child:empty {
+        display: none !important;
+    }
+
+
+    /* ---------- MAIN CONTAINER ---------- */
+    .block-container {
+        max-width: 1000px !important;
+        padding-top: 1.8rem !important;
+        padding-bottom: 1.5rem !important;
+    }
+
+    /* ---------- CARD ---------- */
+    .card {
+        background: rgba(2, 6, 23, 0.92);
+        border: 1px solid #1f2933;
+        border-radius: 16px;
+        padding: 1.3rem;
+        margin-bottom: 1.2rem;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+    }
+
+    /* ---------- TITLES ---------- */
+    .main-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #f9fafb;
+        margin-bottom: 1.4rem;
+    }
+
+    .section-title {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #e5e7eb;
+        margin-bottom: 0.6rem;
+    }
+
+    /* ---------- FILE UPLOADER ---------- */
+    div[data-testid="stFileUploader"] {
+        background: #020617;
+        border: 1px dashed #1f2933;
+        border-radius: 12px;
+        padding: 0.9rem;
+    }
+
+    /* ---------- BUTTONS (DARK RED) ---------- */
+    .stButton button {
+        background: #7f1d1d;      /* dark red */
+        color: #f9fafb;
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-size: 13px;
+        font-weight: 600;
+        border: 1px solid #991b1b;
+    }
+
+    .stButton button:hover {
+        background: #991b1b;
+    }
+
+    /* ---------- PROGRESS ---------- */
+    div[data-testid="stProgress"] > div > div {
+        background: linear-gradient(90deg, #7f1d1d, #b91c1c);
+    }
+
+    /* ---------- DATAFRAME ---------- */
+    div[data-testid="stDataFrame"] {
+        background: #020617;
+        border-radius: 12px;
+        border: 1px solid #1f2933;
+    }
+
+    /* ---------- METRICS ---------- */
+    [data-testid="stMetricValue"] {
+        font-size: 1.7rem;
+        font-weight: 700;
+        color: #f9fafb;
+    }
+
+    /* ---------- RISK ---------- */
+    .risk-low    { color: #22c55e; font-weight: 600; }
+    .risk-medium { color: #facc15; font-weight: 600; }
+    .risk-high   { color: #dc2626; font-weight: 700; }
+
+    </style>
+    """, unsafe_allow_html=True)
+
+
     col1, col2 = st.columns([1, 1])
 
     with col1:
@@ -448,14 +716,124 @@ def single_image_analysis_page():
             st.dataframe(prob_df.style.format({"Probability": "{:.2%}"}))
 
 # -------- PROGRESS TRACKING --------
+
+st.markdown("""
+<style>
+
+/* ---------- GLOBAL ---------- */
+html, body, [data-testid="stAppViewContainer"] {
+    background: radial-gradient(
+        1200px 600px at 50% -200px,
+        #0b1220 0%,
+        #020617 60%
+    );
+    color: #e5e7eb;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Hide Streamlit chrome */
+#MainMenu, footer, header { visibility: hidden; }
+
+/* ---------- MAIN CONTAINER ---------- */
+.block-container {
+    max-width: 1000px !important;
+    padding-top: 1.8rem !important;
+    padding-bottom: 1.5rem !important;
+}
+
+/* ---------- CARD ---------- */
+.card {
+    background: rgba(2, 6, 23, 0.92);
+    border: 1px solid #1f2933;
+    border-radius: 16px;
+    padding: 1.4rem;
+    margin-bottom: 1.4rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+}
+
+/* ---------- HEADERS ---------- */
+.sub-header {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #f9fafb;
+    margin-bottom: 0.6rem;
+}
+
+.section-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #e5e7eb;
+    margin-bottom: 0.5rem;
+}
+
+/* ---------- FILE UPLOADER ---------- */
+div[data-testid="stFileUploader"] {
+    background: #020617;
+    border: 1px dashed #1f2933;
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+/* ---------- METRICS ---------- */
+[data-testid="stMetric"] {
+    background: #020617;
+    border: 1px solid #1f2933;
+    border-radius: 12px;
+    padding: 0.6rem;
+}
+
+[data-testid="stMetricValue"] {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #f9fafb;
+}
+
+/* ---------- BUTTONS ---------- */
+.stButton button {
+    background: #7f1d1d;
+    color: #f9fafb;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid #991b1b;
+}
+
+.stButton button:hover {
+    background: #991b1b;
+}
+
+/* ---------- ALERTS ---------- */
+.stWarning {
+    background: rgba(127, 29, 29, 0.15);
+    border-left: 4px solid #dc2626;
+}
+
+.stSuccess {
+    background: rgba(34, 197, 94, 0.15);
+    border-left: 4px solid #22c55e;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+
 def progress_tracking_page():
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+
     st.markdown('<div class="sub-header">Lesion Progress Tracking</div>', unsafe_allow_html=True)
-    st.write("Upload two images of the same lesion taken at different times to track changes.")
+    st.markdown(
+        '<div style="color:#9ca3af; font-size:0.95rem; margin-bottom:1.2rem;">'
+        'Upload two images of the same lesion taken at different times to track changes.'
+        '</div>',
+        unsafe_allow_html=True
+    )
+
 
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown("**Baseline Image**")
+        st.markdown('<div class="section-title">Baseline Image</div>', unsafe_allow_html=True)
         baseline_img = st.file_uploader(
             "Upload baseline image",
             type=["jpg", "jpeg", "png", "bmp"],
@@ -466,7 +844,7 @@ def progress_tracking_page():
             st.image(baseline_image, caption="Baseline Image", use_container_width=True)
 
     with col2:
-        st.markdown("**Follow-up Image**")
+        st.markdown('<div class="section-title">Follow-up Image</div>', unsafe_allow_html=True)
         followup_img = st.file_uploader(
             "Upload follow-up image",
             type=["jpg", "jpeg", "png", "bmp"],
@@ -546,8 +924,88 @@ def progress_tracking_page():
 
 # -------- CLASS ACCURACY --------
 def class_accuracy_page():
-    st.header("Class-wise Model Accuracy")
+
+    st.markdown("""
+<style>
+
+/* ---------- PLOTLY CHART ---------- */
+div[data-testid="stPlotlyChart"] {
+    background: #020617 !important;
+    border-radius: 14px;
+    border: 1px solid #1f2933;
+    padding: 0.8rem;
+}
+
+/* ---------- DATAFRAME CONTAINER ---------- */
+div[data-testid="stDataFrame"] {
+    background: #020617 !important;
+    border-radius: 14px;
+    border: 1px solid #1f2933;
+    padding: 0.4rem;
+}
+
+/* ---------- DATAFRAME INNER TABLE ---------- */
+div[data-testid="stDataFrame"] table {
+    background: #020617 !important;
+    color: #e5e7eb;
+}
+
+/* ---------- DATAFRAME HEADER ---------- */
+div[data-testid="stDataFrame"] thead tr th {
+    background: #020617 !important;
+    color: #9ca3af !important;
+    border-bottom: 1px solid #1f2933 !important;
+}
+
+/* ---------- DATAFRAME ROWS ---------- */
+div[data-testid="stDataFrame"] tbody tr {
+    background: #020617 !important;
+}
+
+div[data-testid="stDataFrame"] tbody tr:hover {
+    background: rgba(127, 29, 29, 0.12) !important;
+}
+
+/* ---------- EXPANDER ---------- */
+div[data-testid="stExpander"] {
+    background: rgba(2, 6, 23, 0.92);
+    border: 1px solid #1f2933;
+    border-radius: 14px;
+}
+
+/* Expander header */
+div[data-testid="stExpander"] summary {
+    color: #f9fafb;
+    font-weight: 600;
+}
+
+/* ---------- REMOVE EXTRA SPACING ---------- */
+div[data-testid="stExpander"] > div {
+    padding-top: 0.6rem;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+
+    st.markdown(
+        '<div class="sub-header">Class-wise Model Accuracy</div>',
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        '<div style="color:#9ca3af; font-size:0.95rem; margin-bottom:1.2rem;">'
+        'Performance metrics for each lesion class based on validation data.'
+        '</div>',
+        unsafe_allow_html=True
+    )
+
+    # Embed the existing accuracy app
     class_accuracy.app()
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
 
 # ----------------------------------
 # ROUTER
