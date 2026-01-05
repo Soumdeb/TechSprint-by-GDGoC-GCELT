@@ -134,16 +134,16 @@ def app():
 
     with col1:
         st.image("assets/Soumyadeb.jpeg", use_container_width=True)
-        st.markdown('<div class="team-name">Soumyadeb</div>', unsafe_allow_html=True)
+        st.markdown('<div class="team-name">Soumyadeb Nandy</div>', unsafe_allow_html=True)
         st.markdown('<div class="team-role">Machine Learning</div>', unsafe_allow_html=True)
 
     with col2:
         st.image("assets/adhiraj.jpg", use_container_width=True)
-        st.markdown('<div class="team-name">Adhiraj</div>', unsafe_allow_html=True)
+        st.markdown('<div class="team-name">Adhiraj Ghosh</div>', unsafe_allow_html=True)
         st.markdown('<div class="team-role">Cloud & Firebase</div>', unsafe_allow_html=True)
 
     with col3:
-        st.image("assets/adhiraj.jpg", use_container_width=True)
+        st.image("assets/soumosundar.jpeg", use_container_width=True)
         st.markdown('<div class="team-name">Soumyasundar Sai</div>', unsafe_allow_html=True)
         st.markdown('<div class="team-role">Research</div>', unsafe_allow_html=True)
 
