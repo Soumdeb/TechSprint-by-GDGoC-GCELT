@@ -122,4 +122,4 @@ The system leverages a **Convolutional Neural Network (CNN)** trained on diverse
 
 ## System Architecture
 
-
+<img src="assets/system architecture.png" alt="Logo" width="90" height="90">
