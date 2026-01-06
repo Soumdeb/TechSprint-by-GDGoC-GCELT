@@ -550,7 +550,6 @@ def home():
 
 # -------- SINGLE IMAGE ANALYSIS --------
 def single_image_analysis_page():
-    st.markdown('<div class="card">', unsafe_allow_html=True)
     st.markdown('<div class="main-title">Single Image Analysis</div>', unsafe_allow_html=True)
 
     st.markdown("""
@@ -583,16 +582,6 @@ def single_image_analysis_page():
         padding-bottom: 1.5rem !important;
     }
 
-    /* ---------- CARD ---------- */
-    .card {
-        background: rgba(2, 6, 23, 0.92);
-        border: 1px solid #1f2933;
-        border-radius: 16px;
-        padding: 1.3rem;
-        margin-bottom: 1.2rem;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.45);
-    }
-
     /* ---------- TITLES ---------- */
     .main-title {
         font-size: 2.2rem;
@@ -616,25 +605,6 @@ def single_image_analysis_page():
         padding: 0.9rem;
     }
 
-    /* ---------- BUTTONS (DARK RED) ---------- */
-    .stButton button {
-        background: #7f1d1d;      /* dark red */
-        color: #f9fafb;
-        border-radius: 10px;
-        padding: 10px 14px;
-        font-size: 13px;
-        font-weight: 600;
-        border: 1px solid #991b1b;
-    }
-
-    .stButton button:hover {
-        background: #991b1b;
-    }
-
-    /* ---------- PROGRESS ---------- */
-    div[data-testid="stProgress"] > div > div {
-        background: linear-gradient(90deg, #7f1d1d, #b91c1c);
-    }
 
     /* ---------- DATAFRAME ---------- */
     div[data-testid="stDataFrame"] {
@@ -741,16 +711,6 @@ html, body, [data-testid="stAppViewContainer"] {
     padding-bottom: 1.5rem !important;
 }
 
-/* ---------- CARD ---------- */
-.card {
-    background: rgba(2, 6, 23, 0.92);
-    border: 1px solid #1f2933;
-    border-radius: 16px;
-    padding: 1.4rem;
-    margin-bottom: 1.4rem;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.45);
-}
-
 /* ---------- HEADERS ---------- */
 .sub-header {
     font-size: 1.8rem;
@@ -819,7 +779,6 @@ div[data-testid="stFileUploader"] {
 
 
 def progress_tracking_page():
-    st.markdown('<div class="card">', unsafe_allow_html=True)
 
     st.markdown('<div class="sub-header">Lesion Progress Tracking</div>', unsafe_allow_html=True)
     st.markdown(
