@@ -130,6 +130,9 @@ def app():
     # ---------- Team ----------
     st.markdown('<div class="section-title">Team</div>', unsafe_allow_html=True)
 
+
+    
+
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
@@ -151,3 +154,14 @@ def app():
         st.image("assets/swastika.jpg", use_container_width=True)
         st.markdown('<div class="team-name">Swastika Khan</div>', unsafe_allow_html=True)
         st.markdown('<div class="team-role">CSS & Planning</div>', unsafe_allow_html=True)
+
+        # ---------- Footer ----------
+    st.markdown(
+        """
+        <hr style="border:0; border-top:1px solid #1f2933; margin-top:40px;"/>
+        <div style="text-align:center; color:#6b7280; font-size:12px; padding:10px 0;">
+            © Copyright 2026, All Rights Reserved by <strong>DERMAC AI</strong>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
