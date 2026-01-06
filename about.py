@@ -111,7 +111,10 @@ def app():
         <h3>Security & Privacy by Design</h3>
         <p class="muted">
         Patient-related data is handled with a security-first approach.
-        Controlled access workflows and encryption mechanisms ensure confidentiality
+        As no database or persistent storage is currently connected,
+        no personal data is stored or transmitted, eliminating the risk
+        of privacy leakage. Controlled access workflows and encryption
+        mechanisms are applied at the system level to ensure confidentiality
         and prevent unauthorized data exposure.
         </p>
     </div>
