@@ -198,6 +198,6 @@ The application will launch in your default browser.
    View class-wise probability distributions to better interpret predictions.
 
 All inference is performed locally to ensure privacy and low-latency results.
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
