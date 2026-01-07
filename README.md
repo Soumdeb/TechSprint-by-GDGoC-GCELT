@@ -201,3 +201,19 @@ All inference is performed locally to ensure privacy and low-latency results.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+###Privacy & Ethics
+
+<p>Dermac AI is built with privacy-first and ethical AI principles:</p>
+
+  -No mandatory cloud-based inference
+
+  -Images are processed locally on the client machine
+
+  -Firebase is used only for authentication, not medical data storage
+
+  -Fairness-aware training across diverse skin tones
+
+  -Designed strictly for clinical decision support
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
