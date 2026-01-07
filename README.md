@@ -222,21 +222,21 @@ All inference is performed locally to ensure privacy and low-latency results.
 
 <p>Planned enhancements for future versions include:</p>
 
-   a) Explainable AI (visual attention maps for predictions)
+    a) Explainable AI (visual attention maps for predictions)
 
-   b) Mobile and edge-device deployment
+    b) Mobile and edge-device deployment
 
-   c) Expanded skin condition coverage
+    c) Expanded skin condition coverage
 
-   d) Automated longitudinal trend analysis
+    d) Automated longitudinal trend analysis
 
-   e) Clinical validation studies with dermatologists
+    e) Clinical validation studies with dermatologists
 
-   f) EHR / health system integration
+    f) EHR / health system integration
 
-   g) Continuous bias and fairness auditing
+    g) Continuous bias and fairness auditing
 
-   h) Regulatory compliance readiness
+    h) Regulatory compliance readiness
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -249,13 +249,13 @@ See the LICENSE file for more information.</p>
 
 ### Contact
 
-<p>Dermac AI Team
+<p> Dermac AI Team</p>
 
-For questions, feedback, or collaboration requests:</p>
-📧 Email : Hackncheese@gmail.com
+<p> For questions, feedback, or collaboration requests:</p>
+<p> 📧 Email : Hackncheese@gmail.com</p>
 
-Project Repository:
-🔗 [https://github.com/github_username/repo_name](https://github.com/Soumdeb/TechSprint-by-GDGoC-GCELT)
+<p> Project Repository:</p>
+<p> 🔗 [https://github.com/github_username/repo_name](https://github.com/Soumdeb/TechSprint-by-GDGoC-GCELT)</p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
