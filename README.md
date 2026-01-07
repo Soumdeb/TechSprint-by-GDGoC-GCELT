@@ -202,7 +202,7 @@ All inference is performed locally to ensure privacy and low-latency results.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-###Privacy & Ethics
+### Privacy & Ethics
 
 <p>Dermac AI is built with privacy-first and ethical AI principles:</p>
 
