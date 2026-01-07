@@ -175,10 +175,10 @@ The application will launch in your default browser.
 
  Dermac AI provides a clinician-friendly workflow:
 
- 1. Secure Login / Signup
+ 1. **Secure Login / Signup**
     Clinicians authenticate using Firebase-powered email and password login.
 
-2. Single Image Analysis
+2. **Single Image Analysis**
    Upload a skin lesion image to receive:
 
      a) Predicted lesion class
@@ -187,14 +187,14 @@ The application will launch in your default browser.
 
      c) Risk categorization
 
-3. Lesion Progress Tracking
+3. **Lesion Progress Tracking**
    Upload baseline and follow-up images to:
 
      b) Quantify lesion changes
 
      c) Visualize progression using heatmaps
 
-4. Model Transparency
+4. **Model Transparency**  
    View class-wise probability distributions to better interpret predictions.
 
 All inference is performed locally to ensure privacy and low-latency results.
