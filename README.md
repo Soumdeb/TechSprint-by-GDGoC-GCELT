@@ -147,7 +147,57 @@ Ensure the following are installed on your system:
 python --version
 pip --version
 
+```
+### Installation
 
-Installation
+1. **Clone the repository**
+   ```sh
+   git clone https://github.com/github_username/repo_name.git
+   cd repo_name
+   
+2. **Create and activate a virtual environment**
+   ```sh
+   python -m venv .venv
+   source .venv/bin/activate   # On Windows: .venv\Scripts\activate
+   
+3. **Install required dependencies**
+   ```sh
+   pip install -r requirements.txt
+   
+4. **Run the application**
+    ```sh
+    streamlit run mainx.py
+The application will launch in your default browser.
 
-Clone the repository
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Usage
+
+ Dermac AI provides a clinician-friendly workflow:
+
+ 1. Secure Login / Signup
+    Clinicians authenticate using Firebase-powered email and password login.
+
+2. Single Image Analysis
+   Upload a skin lesion image to receive:
+
+     a) Predicted lesion class
+
+     b) Confidence score
+
+     c) Risk categorization
+
+3. Lesion Progress Tracking
+   Upload baseline and follow-up images to:
+
+     b) Quantify lesion changes
+
+     c) Visualize progression using heatmaps
+
+4. Model Transparency
+   View class-wise probability distributions to better interpret predictions.
+
+All inference is performed locally to ensure privacy and low-latency results.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
