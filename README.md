@@ -196,7 +196,7 @@ The application will launch in your default browser.
 
 4. **Model Transparency**  
    <p>View class-wise probability distributions to better interpret predictions.</p>
-
+   
 All inference is performed locally to ensure privacy and low-latency results.
 
 
@@ -206,14 +206,67 @@ All inference is performed locally to ensure privacy and low-latency results.
 
 <p>Dermac AI is built with privacy-first and ethical AI principles:</p>
 
-  -No mandatory cloud-based inference
+  - No mandatory cloud-based inference
 
-  -Images are processed locally on the client machine
+  - Images are processed locally on the client machine
 
-  -Firebase is used only for authentication, not medical data storage
+  - Firebase is used only for authentication, not medical data storage
 
-  -Fairness-aware training across diverse skin tones
+  - Fairness-aware training across diverse skin tones
 
-  -Designed strictly for clinical decision support
+  - Designed strictly for clinical decision support
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Roadmap
+
+<p>Planned enhancements for future versions include:</p>
+
+   a) Explainable AI (visual attention maps for predictions)
+
+   b) Mobile and edge-device deployment
+
+   c) Expanded skin condition coverage
+
+   d) Automated longitudinal trend analysis
+
+   e) Clinical validation studies with dermatologists
+
+   f) EHR / health system integration
+
+   g) Continuous bias and fairness auditing
+
+   h) Regulatory compliance readiness
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### License
+
+<p>Distributed under the MIT License.
+See the LICENSE file for more information.</p>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Contact
+
+<p>Dermac AI Team
+
+For questions, feedback, or collaboration requests:</p>
+📧 Add your contact email here
+
+Project Repository:
+🔗 [https://github.com/github_username/repo_name](https://github.com/Soumdeb/TechSprint-by-GDGoC-GCELT)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Acknowledgments
+
+ - Open-source dermatology datasets
+
+ - TensorFlow and Streamlit communities
+
+ - Firebase Authentication platform
+
+ - Academic research in AI-assisted dermatology
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p> ```
