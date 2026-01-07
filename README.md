@@ -252,7 +252,7 @@ See the LICENSE file for more information.</p>
 <p>Dermac AI Team
 
 For questions, feedback, or collaboration requests:</p>
-📧 Add your contact email here
+📧 Email : Hackncheese@gmail.com
 
 Project Repository:
 🔗 [https://github.com/github_username/repo_name](https://github.com/Soumdeb/TechSprint-by-GDGoC-GCELT)
@@ -269,4 +269,4 @@ Project Repository:
 
  - Academic research in AI-assisted dermatology
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p> ```
+<p align="right">(<a href="#readme-top">back to top</a>)</p> 
