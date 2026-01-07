@@ -4,7 +4,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/github_username/repo_name">
-    <img src="assets/LOGO.png" alt="Logo" width="90" height="90">
+    <img src="assets/LOGO.png" alt="Logo" width="180" height="180">
   </a>
 
 <h3 align="center">Dermac AI</h3>
