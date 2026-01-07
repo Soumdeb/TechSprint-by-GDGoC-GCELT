@@ -125,3 +125,29 @@ The system leverages a **Convolutional Neural Network (CNN)** trained on diverse
 <div align="center">
 <img src="assets/sys architecture.jpeg" alt="Logo" width="900" height="900">
 </div>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+
+## Getting Started
+
+Follow the steps below to set up **Dermac AI** locally for development or evaluation.
+
+### Prerequisites
+
+Ensure the following are installed on your system:
+
+- **Python 3.8 or higher**
+- **pip** (Python package manager)
+- A modern web browser (Chrome / Edge / Firefox)
+- Git (for version control)
+
+```sh
+python --version
+pip --version
+
+
+Installation
+
+Clone the repository
