@@ -153,10 +153,7 @@ def app():
         st.markdown('<div class="team-name">Soumyasundar Sai</div>', unsafe_allow_html=True)
         st.markdown('<div class="team-role">Research</div>', unsafe_allow_html=True)
 
-    with col4:
-        st.image("assets/swastika.jpg", use_container_width=True)
-        st.markdown('<div class="team-name">Swastika Khan</div>', unsafe_allow_html=True)
-        st.markdown('<div class="team-role">CSS & Planning</div>', unsafe_allow_html=True)
+    
 
         # ---------- Footer ----------
     st.markdown(
