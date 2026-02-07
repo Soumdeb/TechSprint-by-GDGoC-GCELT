@@ -136,7 +136,7 @@ def app():
 
     
 
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3 = st.columns(3)
 
     with col1:
         st.image("assets/Soumyadeb.jpeg", use_container_width=True)
