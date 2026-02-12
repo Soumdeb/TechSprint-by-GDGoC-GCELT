@@ -4,7 +4,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/github_username/repo_name">
-    <a href="https://dermac-ai.streamlit.app/"></a>
+    <a href="https://dermac-ai.streamlit.app/">App link</a>
   </a>
 
 
