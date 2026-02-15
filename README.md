@@ -13,7 +13,7 @@
   <p align="center">
     Clinician-Exclusive AI Skin Lesion Classification & Progress Tracking System
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <strong>Explore the docs »</strong>
     <br />
     <br />
     <a href="https://github.com/github_username/repo_name">View Demo</a>
